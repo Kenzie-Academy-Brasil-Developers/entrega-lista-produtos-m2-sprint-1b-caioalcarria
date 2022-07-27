@@ -21,8 +21,11 @@ function GerarProdutos(lista){
 }
 
 function filtrar(categoria) {
-    let newData = produtos.filter(elemento =>  elemento.secao == categoria)
-    
+    categoria = categoria
+    let newData = produtos.filter(elemento =>  elemento.secao == categoria )
+    if(newData.length ==0){
+        newData = produtos.filter(elemento =>  elemento.nome == categoria )
+    }
     GerarProdutos(newData)
     if (categoria=="Todos Produtos"){
         GerarProdutos(produtos)
@@ -53,19 +56,28 @@ function logId(x) {
 GerarProdutos(produtos)
 
 
+let input = document.querySelector(".filtersContainer .containerBuscaPorNome input")
+let buscar = document.querySelector(".filtersContainer .containerBuscaPorNome button")
 
 
 
 
+console.log(input)
+buscar.addEventListener("click", test)
 
+function test(x) {
+    
+        listaDeProdutos.innerHTML = "";
+        // //RECEBENDO O VALOR DO USUÁRIO
+        let pesquisaUsuario = input.value
+        
 
+        //PASSANDO PARA FAZER A BUSCA 
+         filtrar(pesquisaUsuario)
 
-
-
-
-
-
-
+        
+    
+}
 
 
 
