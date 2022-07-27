@@ -146,12 +146,20 @@ width: calc(95% / 4);
 margin-bottom: 30px;
 }
 
-.containerListaProdutos ul li:hover {
-box-shadow: 3px 3px 13px 1px rgb(146 146 146);
+.containerListaProdutos ul li:hover img{
+ 
+    transition: ease-in-out 0.4s;
+    height: 50%;
+    
+
 }
 
 .containerListaProdutos ul li img {
 width: 100%;
+object-fit: cover;
+border-radius: 8px;
+height: 65% ;
+transition: ease-in-out 0.4s;
 }
 
 .containerListaProdutos ul li h3 {

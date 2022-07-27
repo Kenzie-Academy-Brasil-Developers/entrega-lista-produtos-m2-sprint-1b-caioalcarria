@@ -30,8 +30,29 @@ const produtos = [
     {
         nome: 'Leite',
         preco: 5,
-        secao: 'Laticínio',
+        secao: 'Laticínios',
         categoria: 'Leite',
         img: './src/img/leite.png'
+    },
+    {
+        nome: 'Torta de Maçã',
+        preco: 20,
+        secao: 'Panificadora',
+        categoria: 'Bolo',
+        img: './src/img/torta.jpg'
+    },
+    {
+        nome: 'Bolo',
+        preco: 8,
+        secao: 'Panificadora',
+        categoria: 'Bolo',
+        img: './src/img/bolo.jpg'
+    },
+    {
+        nome: 'Yorgut de morango',
+        preco: 10,
+        secao: 'Laticínios',
+        categoria: 'Leite',
+        img: './src/img/yorgut.jpg'
     }
 ]
