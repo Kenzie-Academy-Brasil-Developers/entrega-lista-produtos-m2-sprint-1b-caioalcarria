@@ -21,13 +21,13 @@ function GerarProdutos(lista){
 }
 
 function filtrar(categoria) {
-    categoria = categoria
+    categoria = categoria.toLowerCase()
     let newData = produtos.filter(elemento =>  elemento.secao == categoria )
     if(newData.length ==0){
         newData = produtos.filter(elemento =>  elemento.nome == categoria )
     }
     GerarProdutos(newData)
-    if (categoria=="Todos Produtos"){
+    if (categoria=="todos produtos"){
         GerarProdutos(produtos)
     }
 }
