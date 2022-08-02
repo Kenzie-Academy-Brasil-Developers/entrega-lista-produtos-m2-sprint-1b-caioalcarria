@@ -1,85 +1,65 @@
-let listaDeProdutos = document.querySelector('.containerListaProdutos ul')
-function criarProduto(img, name, price, section ) {
-    listaDeProdutos.insertAdjacentHTML("afterbegin", `
-    <li>
-        <img src="${img}" alt="Imagem produto">
-        <h3>${name}</h3>
-        <span>${section}</span>
-        <p>R$ ${price}.00</p>
-    </li>`)
-}
-
-let total = document.querySelector('.priceContainer span')
-
-function GerarProdutos(lista){
-    final=0
-    for(let i=0; i<lista.length;i++){
-        criarProduto(lista[i].img, lista[i].nome,lista[i].preco, lista[i].secao)
-        final=final+lista[i].preco
-    }
-    total.innerHTML = `R$ ${final}.00`
-}
-
-function filtrar(categoria) {
-    categoria = categoria.toLowerCase()
-    let newData = produtos.filter(elemento =>  elemento.secao == categoria )
-    if(newData.length ==0){
-        newData = produtos.filter(elemento =>  elemento.nome == categoria )
-    }
-    GerarProdutos(newData)
-    if (categoria=="todos produtos"){
-        GerarProdutos(produtos)
-    }
-}
-
-
-//*clicar
-
-botao=document.querySelectorAll("button.estiloGeralBotoes.estiloGeralBotoes--filter")
-
-
-
-botao.forEach(
-    botao => botao.addEventListener('click',logId)
-)
-
-function logId(x) {
-    //apagar tudo do meu ul
-    if(listaDeProdutos.childElementCount>0){
-        listaDeProdutos.innerHTML = "";
-    }
-    categoria = x.srcElement.innerText
-    console.log(categoria)
-    filtrar(categoria)
-}
-
-GerarProdutos(produtos)
-
-
-let input = document.querySelector(".filtersContainer .containerBuscaPorNome input")
-let buscar = document.querySelector(".filtersContainer .containerBuscaPorNome button")
-
-
-
-
-console.log(input)
-buscar.addEventListener("click", test)
-
-function test(x) {
+function gerarCards(arr) {
+    let ProdutosHTML = document.querySelector('.containerListaProdutos ul')
+    ProdutosHTML.innerHTML=""
+    arr.forEach((elem) => {
+        const {img, nome, secao, preco} = elem
+        ProdutosHTML.insertAdjacentHTML("afterbegin", `
+            <li>
+                <img src="${img}" alt="Imagem produto">
+                <h3>${nome}</h3>
+                <span>${secao}</span>
+                <p>R$ ${ preco }.00</p>
+                <button class="addCart"> Comprar </button>
+            </li>`)
+    });
     
-        listaDeProdutos.innerHTML = "";
-        // //RECEBENDO O VALOR DO USUÁRIO
+}
+
+function addCards() {
+    filtarProdutos('todos produtos')
+}
+addCards()
+function filtarProdutos(value) {
+    let arr=[]
+    value.toLowerCase()
+    produtos.forEach(elem => {
+        let filter = []
+        const{nome, secao, categoria, componentes} = elem
+        filter.push(nome,categoria,...componentes,secao, "todos produtos")
+        filter= filter.map(Element => Element.toLowerCase())
+
+        if(filter.includes(value)==true){
+            arr.push(elem)
+        }
+    });
+    gerarCards(arr)
+}
+
+function section() {
+    let buttonSecao = document.querySelectorAll('#botoesContainer button')
+    buttonSecao.forEach(buttonSecao => buttonSecao.addEventListener('click', function (){
+        filtarProdutos(buttonSecao.attributes.id.value)
+    })
+        
+    );
+}
+section()
+
+
+function buscar() {
+    let input = document.querySelector(".filtersContainer .containerBuscaPorNome input")
+    let buscar = document.querySelector(".filtersContainer .containerBuscaPorNome button")
+    buscar.addEventListener("click", function () {
         let pesquisaUsuario = input.value
-        
-
-        //PASSANDO PARA FAZER A BUSCA 
-         filtrar(pesquisaUsuario)
-
-        
+        filtarProdutos(pesquisaUsuario)
+    })
+    input.addEventListener("keyup", function(event){
     
+    
+        if( event.keyCode == 13){
+            let pesquisaUsuario = input.value
+            filtarProdutos(pesquisaUsuario)
+        }})
 }
-
-
-
-
+buscar()
 
